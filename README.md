@@ -26,6 +26,37 @@ Operations:
 
 Example includes School schema with user and group entities.
 
+## Building and using with docker/podman
+
+```
+--
+-- build image
+--
+$ podman build --format=docker -t rest-api-demo .
+
+
+--
+-- list images
+--
+
+$ podman image list
+
+REPOSITORY                                 TAG         IMAGE ID      CREATED        SIZE
+localhost/rest-api-demo                    latest      56c6ddd84bbc  4 minutes ago  290 MB
+...
+
+--
+-- run image
+--
+
+$ podman run -d -it --name ademo -p 20070:20070 rest-api-demo
+$ podman ps
+
+CONTAINER ID  IMAGE                           COMMAND               CREATED             STATUS                 PORTS                     NAMES
+f765561bb842  localhost/rest-api-demo:latest  /usr/bin/node svc...  About a minute ago  Up About a minute ago  0.0.0.0:20070->20070/tcp  ademo
+
+```
+
 ## Schema Definition 
 
 Schema is kept as JSON data in `db.db.json`.

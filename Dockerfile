@@ -13,6 +13,8 @@ RUN git clone https://github.com/kbaniak/rest-api-demo && \
     npm install
 
 WORKDIR /home/rest/rest-api-demo
-CMD [ "node svc.mjs -p" ]
+
+CMD [ "/usr/bin/node", "svc.mjs", "-p" ]
+
 EXPOSE 20070/tcp
 EXPOSE 20071/tcp
