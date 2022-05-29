@@ -46,7 +46,7 @@ localhost/rest-api-demo                    latest      56c6ddd84bbc  4 minutes a
 ...
 
 --
--- run image
+-- run image (expose port 20070)
 --
 
 $ podman run -d -it --name ademo -p 20070:20070 rest-api-demo
@@ -54,6 +54,20 @@ $ podman ps
 
 CONTAINER ID  IMAGE                           COMMAND               CREATED             STATUS                 PORTS                     NAMES
 f765561bb842  localhost/rest-api-demo:latest  /usr/bin/node svc...  About a minute ago  Up About a minute ago  0.0.0.0:20070->20070/tcp  ademo
+
+---
+--- verify operation
+---
+
+$ curl -sk http://127.0.0.1:20070/info/ | jq
+{
+  "response": null,
+  "version": "Exios rest-api worker 1.0.3",
+  "selfLink": "http://127.0.0.1:20070/info/",
+  "timestamp": 1653827416618,
+  "result": "success"
+}
+
 
 ```
 
