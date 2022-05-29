@@ -14,7 +14,7 @@ import { createResponseBody, RepoMaster } from './lib/repoMaster.mjs';
 
 // configuration
 const cfg = {
-  appVersion: '1.0.1',
+  appVersion: '1.0.2',
   host: '127.0.0.1',
   port: 20070,
   sio: {
