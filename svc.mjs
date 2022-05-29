@@ -11,10 +11,11 @@ import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import { createResponseBody, RepoMaster } from './lib/repoMaster.mjs';
+import Getopt from 'node-getopt';
 
 // configuration
 const cfg = {
-  appVersion: '1.0.2',
+  appVersion: '1.0.3',
   host: '127.0.0.1',
   port: 20070,
   sio: {
@@ -31,6 +32,51 @@ const appStats = {
   get: 0,
   put: 0,
 };
+
+/* commandline params*/
+const getopt = new Getopt([
+  ['s', 'schema=ARG', 'load specific schema db file' ],
+  ['c', 'config=ARG', 'load specific version of configuration' ],
+  ['p', 'persist', 'persist schema changes to disk' ],
+  ['h', 'help', 'display usage']
+]);
+getopt.setHelp(
+  `(c) 2022 Krystian Baniak, version ${cfg.appVersion}\n` +
+  "Usage: node svc.mjs [OPTIONS]\n" +
+  "\n" +
+  "[[OPTIONS]]\n"
+);
+
+
+/* configuration */
+try {
+  const opt = getopt.parse(process.argv.slice(2));
+  if (opt.options.help) {
+    getopt.showHelp();
+    process.exit(0);
+  }
+  if (opt.options.persist) {
+    cfg.persist = true;
+    console.log(`Warning: schema operations will be persistent!`)
+  }
+  if (opt.options.schema) {
+    if (fs.existsSync(opt.options.schema)) {
+      cfg.dbfile = opt.options.schema;
+      console.log(`+++ loading schema from: ${cfg.dbfile}`);
+    }
+  }
+  if (opt.options.config && fs.existsSync(opt.options.config)) {
+    let _cf = JSON.parse( fs.readFileSync(opt.options.config).toString() );
+    if (_cf && _cf.properties) {
+      console.log(`+++ loading config options from: ${opt.options.config}`);
+      Object.assign(cfg, _cf.properties);
+    }
+  }
+}
+catch (e) {
+  console.error(`loadcf: error parsing configuration file: ${e}`);
+  process.exit(11);
+}
 
 /* globals */
 const server = restify.createServer();

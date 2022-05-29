@@ -8,9 +8,14 @@ depends on:
 - restify
 - restify-errors
 - uuid
+- node-getopt
 ```
 
 This simple service implements a rest api that provides CRUD functionality for json based schema.
+By default scheme changes are not persisted to disk. To change that you need to add -p parametr on a command line. 
+
+`node svc.mjs -p`
+
 
 Operations:
 
@@ -23,7 +28,10 @@ Example includes School schema with user and group entities.
 
 ## Schema Definition 
 
-Schema is kept as JSON data in db.db.json:
+Schema is kept as JSON data in `db.db.json`.
+
+The `schema` key contains definition for entity attributes.
+The `records` dictionary allows you to provide arrays with entities. 
 
 ```
 {
@@ -47,6 +55,9 @@ Schema is kept as JSON data in db.db.json:
   }
 }
 ```
+
+The HTTP request for api is:  `/$PREFIX/$ENTITY/$ID`.
+ID is required for detailed inspection, removal or modification.
 
 ## Usage
 

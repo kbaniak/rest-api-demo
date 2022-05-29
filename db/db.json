@@ -2,19 +2,45 @@
   "prefix": "school",
   "schema": {
     "user": {
-      "name": { "type": "string" },
-      "nick": { "type": "string" },
-      "surname": { "type": "string" },
-      "age": { "type": "number" }
+      "name": {
+        "type": "string"
+      },
+      "nick": {
+        "type": "string"
+      },
+      "surname": {
+        "type": "string"
+      },
+      "age": {
+        "type": "number"
+      }
     },
     "group": {
-      "name": { "type": "string" },
-      "description": { "type": "string" }
+      "name": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      }
     }
   },
   "records": {
     "group": [
-      { "id": "09bdaaef-b31c-4814-8f71-15c3ef99586d", "name": "teachers", "description": "example group" }
+      {
+        "id": "09bdaaef-b31c-4814-8f71-15c3ef99586d",
+        "name": "teachers",
+        "description": "example group"
+      }
+    ],
+    "user": [
+      {
+        "name": "Czesiek",
+        "nick": "cmysz",
+        "surname": "Myszaty",
+        "age": 23,
+        "id": "fce5a648-f8d4-41e9-a439-cc77abd84130"
+      }
     ]
-  }
+  },
+  "lastUpdated": 1653825035495
 }

@@ -1,0 +1,13 @@
+[Unit]
+Description=REST-API demo
+
+[Service]
+ExecStart=/usr/bin/node svc.mjs -p
+Restart=always
+WorkingDirectory=/opt/rest-api-demo/
+User=apidemo
+Group=apidemo
+
+[Install]
+WantedBy=multi-user.target
+
