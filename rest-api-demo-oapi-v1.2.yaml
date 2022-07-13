@@ -1,0 +1,377 @@
+openapi: 3.0.2
+info:
+  version: 1.0.2
+  title: REST API Demo
+  description: simple api for waas solution testing
+
+servers:
+  - url: http://gateway.exios.local/school
+    variables:
+      host:
+        default: "127.0.0.1" 
+      port:
+        default: "20070"
+      basepath:
+        default: "school"
+ 
+paths:
+  /user/:
+    get:
+      description: return list of all known users
+      responses:
+        '200':
+          description: normal response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/body"
+                  - type: object
+                    properties:
+                      response:
+                        type: array
+                        items:
+                          allOf:
+                            - type: object
+                              properties:
+                                id:
+                                  $ref: "#/components/schemas/id"
+                            - $ref: "#/components/schemas/user"
+                            - type: object
+                              properties:
+                                kind:
+                                  type: string
+                                  example: isa:school.user
+    post:
+      description: create an user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/user"
+      responses:
+        '200':
+            description: normal response
+            content:
+              application/json:
+                schema:
+                  allOf:
+                    - $ref: "#/components/schemas/body"
+                    - type: object
+                      properties:
+                        response:
+                          allOf:
+                            - type: object
+                              properties:
+                                id:
+                                  $ref: "#/components/schemas/id"
+                            - $ref: "#/components/schemas/user"
+                            - type: object
+                              properties:
+                                kind:
+                                  type: string
+                                  example: "isa:school.user"
+  /user/{id}:
+    get:
+      description: returns a specific user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/id"
+      responses:
+        '200':
+          description: normal response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/body"
+                  - type: object
+                    properties:
+                      response:
+                        allOf:
+                          - type: object
+                            properties:
+                              id:
+                                $ref: "#/components/schemas/id"
+                          - $ref: "#/components/schemas/user"
+                          - type: object
+                            properties:
+                              kind:
+                                type: string
+                                example: isa:school.user
+    put:
+      description: update an user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/id"
+      responses:
+        '200':
+          description: normal response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/body"
+                  - type: object
+                    properties:
+                      response:
+                        type: object
+                        properties:
+                          state:
+                            type: string
+                            example: "record updated"
+                          ref:
+                            allOf:
+                              - $ref: "#/components/schemas/user"
+                              - type: object
+                                properties:
+                                  id:
+                                    $ref: "#/components/schemas/id"
+    delete:
+      description: delete a user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/id"
+      responses:
+        '200':
+          description: normal response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/body"
+                  - type: object
+                    properties:
+                      response:
+                        type: object
+                        properties:
+                          state:
+                            type: string
+                            example: "record deleted"
+                          ref:
+                            allOf:
+                              - type: object
+                                properties:
+                                  id:
+                                    $ref: "#/components/schemas/id"
+                              - $ref: "#/components/schemas/user"
+  /group/:
+    get:
+      description: returns a list of all groups
+      responses:
+        '200':
+            description: normal response
+            content:
+              application/json:
+                schema:
+                  allOf:
+                    - $ref: "#/components/schemas/body"
+                    - type: object
+                      properties:
+                        response:
+                          type: array
+                          items:
+                            allOf:
+                              - type: object
+                                properties:
+                                  id:
+                                    $ref: "#/components/schemas/id"
+                              - $ref: "#/components/schemas/group"
+                              - type: object
+                                properties:
+                                  kind:
+                                    type: string
+                                    example: isa:school.group
+    post:
+      description: create a group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/group"
+      responses:
+        '200':
+            description: normal response
+            content:
+              application/json:
+                schema:
+                  allOf:
+                    - $ref: "#/components/schemas/body"
+                    - type: object
+                      properties:
+                        response:
+                          allOf:
+                            - type: object
+                              properties:
+                                id:
+                                  $ref: "#/components/schemas/id"
+                            - $ref: "#/components/schemas/group"
+                            - type: object
+                              properties:
+                                kind:
+                                  type: string
+                                  example: "isa:school.group"
+  /group/{id}:
+    get:
+      description: returns a specific group
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/id"
+      responses:
+        '200':
+          description: normal response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/body"
+                  - type: object
+                    properties:
+                      response:
+                        allOf:
+                          - type: object
+                            properties:
+                              id:
+                                $ref: "#/components/schemas/id"
+                          - $ref: "#/components/schemas/group"
+                          - type: object
+                            properties:
+                              kind:
+                                type: string
+                                example: isa:school.group
+    put:
+      description: update a group
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/id"
+      responses:
+        '200':
+          description: normal response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/body"
+                  - type: object
+                    properties:
+                      response:
+                        type: object
+                        properties:
+                          state:
+                            type: string
+                            example: "record updated"
+                          ref:
+                            allOf:
+                              - $ref: "#/components/schemas/group"
+                              - type: object
+                                properties:
+                                  id:
+                                    $ref: "#/components/schemas/id"
+    delete:
+      description: delete a group
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/id"
+      responses:
+        '200':
+          description: normal response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/body"
+                  - type: object
+                    properties:
+                      response:
+                        type: object
+                        properties:
+                          state:
+                            type: string
+                            example: "record deleted"
+                          ref:
+                            allOf:
+                              - $ref: "#/components/schemas/group"
+                              - type: object
+                                properties:
+                                  id:
+                                    $ref: "#/components/schemas/id"
+ 
+components:
+  schemas:
+    body:
+      type: object
+      required:
+      - result
+      properties:
+        version:
+          type: string
+          example: "Exios rest-api worker 1.0.3"
+        selfLink:
+          type: string
+          example: "http://{host}:{port}/{basepath}/"
+        result:
+          type: string
+          enum:
+          - success
+          - failure
+          example: success
+        timestamp:
+          type: integer
+          format: timestamp
+          example: 1653823000276
+    id:
+      type: string
+      format: uuid
+      description: id parameter as uuid
+      example: 638d8b4c-d509-4f9b-9ea0-78ed1e8034ee
+    group:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          example: teachers
+        description:
+          type: string
+          example: school teachers
+    user:
+      type: object
+      required:
+      - name
+      - nick
+      - surname
+      - age
+      properties:
+        name:
+          type: string
+          example: Czesiek
+        nick:
+          type: string
+          example: czechu
+        age:
+          type: number
+          example: 29
+        surname:
+          type: string
+          example: Myszaty
